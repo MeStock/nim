@@ -7,6 +7,8 @@ namespace nim
         static void Main()
         {
             WelcomePage.WriteBanner();
+            WelcomePage.StartWithRules();
+            Game.StartGame();
         }
     }
 }
