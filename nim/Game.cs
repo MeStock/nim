@@ -6,19 +6,18 @@ namespace nim
     {
         public static Game currentGame = new Game();
         public static Heaps currentHeaps = new Heaps();
-
-        public static int BOARD_HEIGHT = 3;
+        public static bool gameRunning = true;
 
         public static void StartGame()
         {
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
             Difficulty difficulty  = GetDifficulty();
-            RenderGame(difficulty);
-            while (true)
+            while (gameRunning)
             {
-                bool userInput = int.TryParse();
-                if (CheckForWinner()) break;
+                RenderGame();
+                UserTurn();
+                if (CheckForWinner()) { gameRunning = false; }
             }
         }
 
@@ -40,35 +39,60 @@ namespace nim
 
         }
 
-        public static void RenderGame(Difficulty difficulty)
+        public static void RenderGame()
         {
-           
+            Console.WriteLine("Your turn: ");
+            Console.WriteLine("Select a pile by moving with the arrow keys and hitting enter");
+            Console.WriteLine("Then enter the amount you want to remove");
+            Console.WriteLine();
             Console.Write(
                 $"  |_{currentHeaps.heap1}_|     |_{currentHeaps.heap2}_|     |_{currentHeaps.heap3}_|"
                 );
+            Console.WriteLine();
         }
 
         public static void UserTurn()
         {
+            ConsoleKeyInfo userKey;
             bool validMove = false;
             bool validInput = false;
-            int userInput;
-            Console.WriteLine("Your turn: Select a pile and enter the amount of items you would like to remove");
-            while (!validMove || !validInput)
+            int locationX = 0;
+
+            while (!validInput && !validMove)
             {
-                validInput = int.TryParse(Console.ReadLine(), out userInput);
-                if (validInput) { validMove = CheckIfValidMove(userInput, Console.ReadKey()); }
+                while (Console.ReadKey().Key != ConsoleKey.Enter)
+                {
+                        Console.WriteLine("Inside loop");
+
+                        userKey = Console.ReadKey();
+                        switch (userKey.Key)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                Console.WriteLine($"{locationX}");
+                                if (locationX > 0) { locationX -= 1; }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                Console.WriteLine($"{locationX}");
+                                if (locationX < 2) { locationX += 1; }
+                                break;
+                    }
+                }
+                int selectedHeap = locationX;
+                validInput = int.TryParse(Console.ReadLine(), out int amountToRemove);
+                validMove = CheckIfValidMove(amountToRemove, selectedHeap);
             }
         }
 
-        public bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
+        public static bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
         {
-            if (heapToRemoveFrom - amountToRemove < 0) { return false; }
+            int[] remainingStones = { currentHeaps.heap1, currentHeaps.heap2, currentHeaps.heap3 };
+            if (remainingStones[heapToRemoveFrom] - amountToRemove < 0) { return false; }
             return true;
         }
 
         public static bool CheckForWinner()
         {
+            if (currentHeaps.heap1 == 0 && currentHeaps.heap2 == 0 && currentHeaps.heap3 == 0) { return true; }
             return false;
         }
     }

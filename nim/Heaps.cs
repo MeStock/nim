@@ -5,14 +5,15 @@ namespace nim
 {
     public class Heaps
     {
-        public int heap1;
-        public int heap2;
-        public int heap3;
+        public int heap1 { get; set; }
+        public int heap2 { get; set; }
+        public int heap3 { get; set; }
+
         public Heaps()
         {
-            this.heap1 = GenerateNewRandomHeap();
-            this.heap2 = GenerateNewRandomHeap();
-            this.heap3 = GenerateNewRandomHeap();
+            heap1 = GenerateNewRandomHeap();
+            heap2 = GenerateNewRandomHeap();
+            heap3 = GenerateNewRandomHeap();
         }
 
         public int GenerateNewRandomHeap()
