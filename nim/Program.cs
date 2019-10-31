@@ -6,6 +6,7 @@ namespace nim
     {
         static void Main()
         {
+            WelcomePage.WriteBanner();
         }
     }
 }
