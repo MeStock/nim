@@ -36,10 +36,5 @@ namespace nim
                     break;
             }
         }
-        public bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
-        {
-            if (heapToRemoveFrom - amountToRemove < 0) return false;
-            return true;
-        }
     }
 }
