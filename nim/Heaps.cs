@@ -5,15 +5,15 @@ namespace nim
 {
     public class Heaps
     {
-        public int heap1 { get; set; }
-        public int heap2 { get; set; }
-        public int heap3 { get; set; }
+        public static int Heap1 { get; set; }
+        public static int Heap2 { get; set; }
+        public static int Heap3 { get; set; }
 
         public Heaps()
         {
-            heap1 = GenerateNewRandomHeap();
-            heap2 = GenerateNewRandomHeap();
-            heap3 = GenerateNewRandomHeap();
+            Heap1 = GenerateNewRandomHeap();
+            Heap2 = GenerateNewRandomHeap();
+            Heap3 = GenerateNewRandomHeap();
         }
 
         public int GenerateNewRandomHeap()
@@ -23,18 +23,18 @@ namespace nim
             return amountOfStones;
         }
 
-        public void UpdateNumberOfStones(int amountToRemove, int heapToRemoveFrom)
+        public static void UpdateNumberOfStones(int amountToRemove, int heapToRemoveFrom)
         {
             switch (heapToRemoveFrom)
             {
+                case 0:
+                    Heap1 -= amountToRemove;
+                    break;
                 case 1:
-                    heap1 -= amountToRemove;
+                    Heap2 -= amountToRemove;
                     break;
                 case 2:
-                    heap1 -= amountToRemove;
-                    break;
-                case 3:
-                    heap1 -= amountToRemove;
+                    Heap3 -= amountToRemove;
                     break;
             }
         }

@@ -41,7 +41,7 @@ namespace nim
             Console.WriteLine("2. Medium");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("3. Hard");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ResetColor();
         }
     }
 }
