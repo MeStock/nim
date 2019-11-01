@@ -5,14 +5,15 @@ namespace nim
 {
     public class Heaps
     {
-        public int heap1;
-        public int heap2;
-        public int heap3;
+        public static int Heap1 { get; set; }
+        public static int Heap2 { get; set; }
+        public static int Heap3 { get; set; }
+
         public Heaps()
         {
-            this.heap1 = GenerateNewRandomHeap();
-            this.heap2 = GenerateNewRandomHeap();
-            this.heap3 = GenerateNewRandomHeap();
+            Heap1 = GenerateNewRandomHeap();
+            Heap2 = GenerateNewRandomHeap();
+            Heap3 = GenerateNewRandomHeap();
         }
 
         public int GenerateNewRandomHeap()
@@ -21,25 +22,21 @@ namespace nim
             int amountOfStones= rnd.Next(1, 20);
             return amountOfStones;
         }
-        public void UpdateNumberOfStones(int amountToRemove, int heapToRemoveFrom)
+
+        public static void UpdateNumberOfStones(int amountToRemove, int heapToRemoveFrom)
         {
             switch (heapToRemoveFrom)
             {
+                case 0:
+                    Heap1  -= amountToRemove;
+                    break;
                 case 1:
-                    heap1 -= amountToRemove;
+                    Heap2 -= amountToRemove;
                     break;
                 case 2:
-                    heap1 -= amountToRemove;
-                    break;
-                case 3:
-                    heap1 -= amountToRemove;
+                    Heap3 -= amountToRemove;
                     break;
             }
-        }
-        public bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
-        {
-            if (heapToRemoveFrom - amountToRemove < 0) return false;
-            return true;
         }
     }
 }
