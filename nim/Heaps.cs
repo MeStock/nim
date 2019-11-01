@@ -28,7 +28,7 @@ namespace nim
             switch (heapToRemoveFrom)
             {
                 case 0:
-                    Heap1 -= amountToRemove;
+                    Heap1  -= amountToRemove;
                     break;
                 case 1:
                     Heap2 -= amountToRemove;

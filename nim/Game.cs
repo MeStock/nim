@@ -4,24 +4,29 @@ namespace nim
     public enum Difficulty { Easy = 1, Medium, Hard}
     public class Game
     {
-        public static Game currentGame = new Game();
         public static Heaps currentHeaps = new Heaps();
+        public static Game currentGame = new Game();
+        public static string[] Board { get; set; }
         public static bool gameRunning = true;
-        public static bool rulesHaveBeenExplained;
-        public static string[] board = { $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
+
+        public Game()
+        {
+            Board = new string[]{ $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
+        }
 
         public static void StartGame()
         {
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
             Difficulty difficulty  = AskForDifficulty();
-            RenderGame(board);
+            RenderGame(Board);
             while (gameRunning)
             {
                 Player.Turn();
-                RenderGame(board);
+                UpdateBoard();
                 gameRunning &= !CheckForWinner();
                 //Bot.Turn();
+                //UpdateBoard();
                 //gameRunning &= !CheckForWinner();
             }
             EndGameMessage();
@@ -39,13 +44,12 @@ namespace nim
                 if (!isValidSelection) { Console.WriteLine("Invalid difficulty"); }
             } while (!isValidSelection);
             Console.Clear();
+            ExplainRules();
             return selectedDifficulty;
         }
 
         public static void RenderGame(string[] heaps)
         {
-            if (!rulesHaveBeenExplained) { ExplainRules(); }
-            else { ClearLine(); }
             foreach(string heap in heaps)
             {
                 Console.Write(heap);
@@ -71,7 +75,6 @@ namespace nim
             Console.WriteLine("Select a pile by moving with the arrow keys and hitting enter");
             Console.WriteLine("Then enter the amount you want to remove");
             Console.WriteLine();
-            rulesHaveBeenExplained = true;
         }
 
         public static void EndGameMessage()
@@ -88,7 +91,7 @@ namespace nim
             Console.SetCursorPosition(0, Console.CursorTop - (Console.WindowWidth >= Console.BufferWidth ? 1 : 0));
         }
        
-        public static void UpdateBoard(string[] heaps, int selectedHeap)
+        public static void HoverOverSelectedHeap(string[] heaps, int selectedHeap)
         {
             ClearLine();
             for (int i = 0; i < heaps.Length; i++)
@@ -105,7 +108,12 @@ namespace nim
                     Console.Write(heaps[i]);
                 }
             }
+        }
 
+        public static void UpdateBoard()
+        {
+            Board = new string[]{ $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
+            RenderGame(Board);
         }
     }
 }

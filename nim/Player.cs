@@ -11,13 +11,14 @@ namespace nim
             bool validNumber = false;
             int amountToRemove = 0;
 
-            while (!validNumber && !validMove)
+            while (!validNumber && !validMove && amountToRemove < 1)
             {
                 SelectedHeap = GetSelectedHeap();
                 validNumber = int.TryParse(Console.ReadLine(), out amountToRemove);
                 validMove = Game.CheckIfValidMove(amountToRemove, SelectedHeap);
-                if (!validMove && validNumber) { Console.WriteLine($"Invalid move - that pile does not have {amountToRemove} stones in it"); }
-                if (!validMove && !validNumber) { Console.WriteLine($"Invalid move -  please enter an integer value"); }
+                if (!validMove && validNumber) { Console.WriteLine($"Invalid move - that pile does not have {amountToRemove} stones in it"); amountToRemove = 0; }
+                else if(!validMove && !validNumber) { Console.WriteLine($"Invalid move -  please enter an integer value"); }
+                else if(validNumber && amountToRemove < 1) { Console.WriteLine("Invalid move - You must take at least one stone"); }
             }
             Heaps.UpdateNumberOfStones(amountToRemove, SelectedHeap);
         }
@@ -26,28 +27,28 @@ namespace nim
         {
             Console.SetCursorPosition(0, Console.CursorTop);
             ConsoleKeyInfo userKey;
-            int locationX = 0;
-            bool selectionWasMade = false;
+            int heapNumber = 0;
+            bool heapWasSelected = false;
 
-            while (!selectionWasMade)
+            while (!heapWasSelected)
             {
                 userKey = Console.ReadKey();
                 switch (userKey.Key)
                 {
                     case ConsoleKey.LeftArrow:
-                        if (locationX > 0) { locationX -= 1; }
-                        Game.UpdateBoard(Game.board ,locationX);
+                        if (heapNumber > 0) { heapNumber -= 1; }
+                        Game.HoverOverSelectedHeap(Game.Board ,heapNumber);
                         break;
                     case ConsoleKey.RightArrow:
-                        if (locationX < 2) { locationX += 1; }
-                        Game.UpdateBoard(Game.board, locationX);
+                        if (heapNumber < 2) { heapNumber += 1; }
+                        Game.HoverOverSelectedHeap(Game.Board, heapNumber);
                         break;
                     case ConsoleKey.Enter:
-                        selectionWasMade = true;
+                        heapWasSelected = true;
                         break;
                 }
             }
-                return locationX;
+                return heapNumber;
         }
     }
 }
