@@ -50,10 +50,12 @@ namespace nim
 
         public static void RenderGame(string[] heaps)
         {
-            foreach(string heap in heaps)
-            {
-                Console.Write(heap);
-            }
+            Console.BackgroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write(heaps[0]);
+            Console.ResetColor();
+            Console.Write(heaps[1]);
+            Console.Write(heaps[2]);
         }
 
         public static bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
@@ -98,13 +100,13 @@ namespace nim
             {
                 if (i == selectedHeap)
                 {
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.BackgroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write(heaps[i]);
+                    Console.ResetColor();
                 }
                 else
                 {
-                    Console.ResetColor();
                     Console.Write(heaps[i]);
                 }
             }
