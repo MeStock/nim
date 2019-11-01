@@ -31,5 +31,17 @@ namespace nim
             Console.WriteLine("Happy Nimming!");
 
         }
+
+        public static void WriteDifficultyOptions()
+        {
+            Console.WriteLine("Please select your difficulty:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("1. Easy");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("2. Medium");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("3. Hard");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 }

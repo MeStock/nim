@@ -22,6 +22,7 @@ namespace nim
             int amountOfStones= rnd.Next(1, 20);
             return amountOfStones;
         }
+
         public void UpdateNumberOfStones(int amountToRemove, int heapToRemoveFrom)
         {
             switch (heapToRemoveFrom)

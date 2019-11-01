@@ -12,25 +12,22 @@ namespace nim
         {
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
-            Difficulty difficulty  = GetDifficulty();
+            Difficulty difficulty  = AskForDifficulty();
             while (gameRunning)
             {
                 RenderGame();
-                UserTurn();
-                if (CheckForWinner()) { gameRunning = false; }
+                Player.Turn();
+                gameRunning &= !CheckForWinner();
             }
         }
 
-        public static Difficulty GetDifficulty()
+        public static Difficulty AskForDifficulty()
         {
             bool isValidSelection;
             Difficulty selectedDifficulty;
             do
             {
-                Console.WriteLine("Please select your difficulty:");
-                Console.WriteLine("1. Easy");
-                Console.WriteLine("2. Medium");
-                Console.WriteLine("3. Hard");
+                WelcomePage.WriteDifficultyOptions();
                 string userInput = Console.ReadLine();
                 isValidSelection = Enum.TryParse<Difficulty>(userInput, true, out selectedDifficulty);
             } while (!isValidSelection);
@@ -49,38 +46,6 @@ namespace nim
                 $"  |_{currentHeaps.heap1}_|     |_{currentHeaps.heap2}_|     |_{currentHeaps.heap3}_|"
                 );
             Console.WriteLine();
-        }
-
-        public static void UserTurn()
-        {
-            ConsoleKeyInfo userKey;
-            bool validMove = false;
-            bool validInput = false;
-            int locationX = 0;
-
-            while (!validInput && !validMove)
-            {
-                while (Console.ReadKey().Key != ConsoleKey.Enter)
-                {
-                        Console.WriteLine("Inside loop");
-
-                        userKey = Console.ReadKey();
-                        switch (userKey.Key)
-                        {
-                            case ConsoleKey.LeftArrow:
-                                Console.WriteLine($"{locationX}");
-                                if (locationX > 0) { locationX -= 1; }
-                                break;
-                            case ConsoleKey.RightArrow:
-                                Console.WriteLine($"{locationX}");
-                                if (locationX < 2) { locationX += 1; }
-                                break;
-                    }
-                }
-                int selectedHeap = locationX;
-                validInput = int.TryParse(Console.ReadLine(), out int amountToRemove);
-                validMove = CheckIfValidMove(amountToRemove, selectedHeap);
-            }
         }
 
         public static bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
