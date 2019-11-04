@@ -4,6 +4,8 @@ namespace nim
     public static class Player
     {
         public static int SelectedHeap { get; set; }
+        public static int CURSOR_TOP = 5;
+        public static int CURSOR_LEFT = 6;
 
         public static void Turn()
         {
@@ -14,11 +16,12 @@ namespace nim
             while (!validNumber || !validMove || amountToRemove < 1)
             {
                 SelectedHeap = GetSelectedHeap();
+                AskForUserInput();
                 validNumber = int.TryParse(Console.ReadLine(), out amountToRemove);
                 validMove = Game.CheckIfValidMove(amountToRemove, SelectedHeap);
-                if (!validNumber) { Console.WriteLine($"Invalid move -  please enter an integer value"); amountToRemove = 0; Game.UpdateBoard(); }
-                else if (!validMove) { Console.WriteLine($"Invalid move - that pile does not have {amountToRemove} stones in it"); amountToRemove = 0; Game.UpdateBoard(); }
-                else if(amountToRemove < 1) { Console.WriteLine("Invalid move - You must take at least one stone"); Game.UpdateBoard(); }
+                if (!validNumber) { amountToRemove = AskForValidNumber(); }
+                else if (!validMove) { amountToRemove = AskForValidMove(amountToRemove); }
+                else if(amountToRemove < 1) { AskForAtLeastOne(); }
             }
             Heaps.UpdateNumberOfStones(amountToRemove, SelectedHeap);
         }
@@ -32,7 +35,7 @@ namespace nim
 
             while (!heapWasSelected)
             {
-                userKey = Console.ReadKey();
+                userKey = Console.ReadKey(true);
                 switch (userKey.Key)
                 {
                     case ConsoleKey.LeftArrow:
@@ -52,6 +55,36 @@ namespace nim
                 }
             }
                 return heapNumber;
+        }
+
+        public static void AskForUserInput()
+        {
+            Console.SetCursorPosition(CURSOR_TOP, CURSOR_LEFT);
+            Render.ClearLine();
+            Console.Write("How many would you like to remove? ");
+        }
+
+        public static int AskForValidNumber()
+        {
+            Render.ClearLine();
+            Console.WriteLine($"Invalid move -  please enter an integer value");
+            Game.UpdateBoard();
+            return 0;
+        }
+
+        public static int AskForValidMove(int amountToRemove)
+        {
+            Render.ClearLine();
+            Console.WriteLine($"Invalid move - that pile does not have {amountToRemove} stones in it");
+            Game.UpdateBoard();
+            return 0;
+        }
+
+        public static void AskForAtLeastOne()
+        {
+            Render.ClearLine();
+            Console.WriteLine("Invalid move - You must take at least one stone");
+            Game.UpdateBoard();
         }
     }
 }

@@ -21,6 +21,7 @@ namespace nim
             WelcomePage.StartWithRules();
             Difficulty difficulty = AskForDifficulty();
             Bot.PredictWinner(whoseTurn);
+            Console.WriteLine();
             Render.Game(Board);
             while (gameRunning)
             {
@@ -80,13 +81,10 @@ namespace nim
 
         public static void EndGameMessage(string whoseTurn)
         {
-            string winner, loser;
-            if (whoseTurn == "Player") {  winner = "Sorry! the computer";  loser = "you"; }
-            else {  winner = "Congrats! You";  loser = "the computer"; }
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.Clear();
             Console.WriteLine("Game Over");
-            Console.WriteLine($"{winner} beat {loser}");
+            if (whoseTurn == "Bot") { Console.WriteLine("Congrats! You beat the computer :)"); }
+            else { Console.WriteLine("Sorry, you lost to the computer :("); }
         }
 
         public static void UpdateBoard()

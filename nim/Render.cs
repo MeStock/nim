@@ -10,7 +10,7 @@ namespace nim
             {
                 if (i == 0)
                 {
-                    Console.BackgroundColor = ConsoleColor.Magenta;
+                    Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write(heaps[i]);
                     Console.ResetColor();
@@ -32,11 +32,12 @@ namespace nim
         public static void HoverOverSelectedHeap(string[] heaps, int selectedHeap)
         {
             ClearLine();
+            ClearLine();
             for (int i = 0; i < heaps.Length; i++)
             {
                 if (i == selectedHeap)
                 {
-                    Console.BackgroundColor = ConsoleColor.Magenta;
+                    Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write(heaps[i]);
                     Console.ResetColor();

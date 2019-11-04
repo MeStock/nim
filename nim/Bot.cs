@@ -44,6 +44,8 @@ namespace nim
                     isValidMove = Game.CheckIfValidMove((remainingStones[i] ^ nimSum), i);
                     if ((remainingStones[i] ^ nimSum) < remainingStones[i] && isValidMove)
                     {
+                        Render.ClearLine();
+                        Console.WriteLine($"Computer removed {(remainingStones[i] ^ nimSum)} stones from pile {i + 1}");
                         Heaps.UpdateNumberOfStones((remainingStones[i] ^ nimSum), i);
                         break;
                     }
@@ -67,6 +69,8 @@ namespace nim
                 isValidMove = Game.CheckIfValidMove(randomAmountToRemove, heapToRemoveFrom);
             }
             while (!isValidMove);
+            Render.ClearLine();
+            Console.WriteLine($"Computer removed {randomAmountToRemove} stones from pile {heapToRemoveFrom}");
             Heaps.UpdateNumberOfStones(randomAmountToRemove, heapToRemoveFrom);
         }
 
