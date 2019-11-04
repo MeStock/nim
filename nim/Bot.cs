@@ -3,12 +3,35 @@ namespace nim
 {
     public class Bot
     {
+        public static double easyPercent = 0.25;
+        public static double mediumPercent = 0.50;
+        public static Random rnd = new Random();
+
         public static int CalculateNimSum()
         {
             return Heaps.Heap1 ^ Heaps.Heap2 ^ Heaps.Heap3;
         }
 
-        public static void Turn()
+        public static void Turn(Difficulty selectedDifficulty)
+        {
+            double percentToChooseOptimalMove = rnd.Next(0,1);
+            switch (selectedDifficulty)
+            {
+                case Difficulty.Easy:
+                    if (percentToChooseOptimalMove <= easyPercent) { MakeOptimalMove(); }
+                    else { MakeRandomMove(); }
+                    break;
+                case Difficulty.Medium:
+                    if (percentToChooseOptimalMove <= mediumPercent) { MakeOptimalMove(); }
+                    else { MakeRandomMove(); }
+                    break;
+                case Difficulty.Hard:
+                    MakeOptimalMove();
+                    break;
+            }
+        }
+
+        public static void MakeOptimalMove()
         {
             int nimSum = CalculateNimSum();
             int[] remainingStones = { Heaps.Heap1, Heaps.Heap2, Heaps.Heap3 };
@@ -16,7 +39,7 @@ namespace nim
 
             if (nimSum != 0)
             {
-                for (int i = 0; i < Game.NUMBER_OF_PILES; i++)
+                for (int i = 0; i < remainingStones.Length; i++)
                 {
                     isValidMove = Game.CheckIfValidMove((remainingStones[i] ^ nimSum), i);
                     if ((remainingStones[i] ^ nimSum) < remainingStones[i] && isValidMove)
@@ -28,18 +51,23 @@ namespace nim
             }
             else
             {
-                Random rnd = new Random();
-                int randomAmountToRemove;
-                int heapToRemoveFrom;
-                do
-                {
-                    randomAmountToRemove = rnd.Next(1,20);
-                    heapToRemoveFrom = rnd.Next(0, 3);
-                    isValidMove = Game.CheckIfValidMove(randomAmountToRemove, heapToRemoveFrom);
-                }
-                while (!isValidMove);
-                Heaps.UpdateNumberOfStones(randomAmountToRemove, heapToRemoveFrom);
+                MakeRandomMove();
             }
+        }
+
+        public static void MakeRandomMove()
+        {
+            int randomAmountToRemove;
+            int heapToRemoveFrom;
+            bool isValidMove;
+            do
+            {
+                randomAmountToRemove = rnd.Next(1, 50);
+                heapToRemoveFrom = rnd.Next(0, 3);
+                isValidMove = Game.CheckIfValidMove(randomAmountToRemove, heapToRemoveFrom);
+            }
+            while (!isValidMove);
+            Heaps.UpdateNumberOfStones(randomAmountToRemove, heapToRemoveFrom);
         }
 
         public static void PredictWinner(string whoseTurn)

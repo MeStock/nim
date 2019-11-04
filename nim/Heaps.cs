@@ -18,7 +18,7 @@ namespace nim
         public int GenerateNewRandomHeap()
         {
             Random rnd = new Random();
-            int amountOfStones = rnd.Next(1, 20);
+            int amountOfStones = rnd.Next(1, 50);
             return amountOfStones;
         }
 

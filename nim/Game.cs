@@ -32,7 +32,7 @@ namespace nim
                 }
                 else
                 {
-                    Bot.Turn();
+                    Bot.Turn(difficulty);
                     whoseTurn = "Player";
                 }
                 UpdateBoard();
@@ -60,12 +60,20 @@ namespace nim
         public static void RenderGame(string[] heaps)
         {
             ClearLine();
-            Console.BackgroundColor = ConsoleColor.Magenta;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.Write(heaps[0]);
-            Console.ResetColor();
-            Console.Write(heaps[1]);
-            Console.Write(heaps[2]);
+            for (int i = 0; i < heaps.Length; i++)
+            {
+                if (i == 0)
+                {
+                    Console.BackgroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write(heaps[i]);
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.Write(heaps[i]);
+                }
+            }
         }
 
         public static bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
