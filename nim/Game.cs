@@ -6,9 +6,9 @@ namespace nim
     {
         public static Heaps currentHeaps = new Heaps();
         public static Game currentGame = new Game();
-        public static Bot currentBot = new Bot();
         public static string[] Board { get; set; }
         public static int NUMBER_OF_PILES = 3;
+        public static string whoseTurn = "Player";
         public static bool gameRunning = true;
 
         public Game()
@@ -21,19 +21,24 @@ namespace nim
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
             Difficulty difficulty  = AskForDifficulty();
-            currentBot.PredictWinner("Player");
+            Bot.PredictWinner(whoseTurn);
             RenderGame(Board);
             while (gameRunning)
             {
-                Player.Turn();
-                Console.WriteLine($"Nimsum: {currentBot.CalculateNimSum()}");
+                if (whoseTurn == "Player")
+                {
+                    Player.Turn();
+                    whoseTurn = "Bot";
+                }
+                else
+                {
+                    Bot.Turn();
+                    whoseTurn = "Player";
+                }
                 UpdateBoard();
                 gameRunning &= !CheckForWinner();
-                //Bot.Turn();
-                //UpdateBoard();
-                //gameRunning &= !CheckForWinner();
             }
-            EndGameMessage();
+            EndGameMessage(whoseTurn);
         }
 
         public static Difficulty AskForDifficulty()
@@ -54,6 +59,7 @@ namespace nim
 
         public static void RenderGame(string[] heaps)
         {
+            ClearLine();
             Console.BackgroundColor = ConsoleColor.Magenta;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Write(heaps[0]);
@@ -77,17 +83,20 @@ namespace nim
 
         public static void ExplainRules()
         {
-            Console.WriteLine("Your turn: ");
             Console.WriteLine("Select a pile by moving with the arrow keys and hitting enter");
             Console.WriteLine("Then enter the amount you want to remove");
             Console.WriteLine();
         }
 
-        public static void EndGameMessage()
+        public static void EndGameMessage(string whoseTurn)
         {
+            string winner, loser;
+            if (whoseTurn == "Player") {  winner = "Sorry! the computer";  loser = "you"; }
+            else {  winner = "Congrats! You";  loser = "the computer"; }
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Game Over");
-            Console.WriteLine($"Congrats, ! You beat");
-            Console.WriteLine("");
+            Console.WriteLine($"{winner} beat {loser}");
         }
 
         public static void ClearLine()

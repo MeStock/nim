@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 
 namespace nim
 {
@@ -19,7 +18,7 @@ namespace nim
         public int GenerateNewRandomHeap()
         {
             Random rnd = new Random();
-            int amountOfStones= rnd.Next(1, 20);
+            int amountOfStones = rnd.Next(1, 20);
             return amountOfStones;
         }
 
@@ -28,7 +27,7 @@ namespace nim
             switch (heapToRemoveFrom)
             {
                 case 0:
-                    Heap1  -= amountToRemove;
+                    Heap1 -= amountToRemove;
                     break;
                 case 1:
                     Heap2 -= amountToRemove;

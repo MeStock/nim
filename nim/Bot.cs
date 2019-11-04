@@ -3,39 +3,48 @@ namespace nim
 {
     public class Bot
     {
-        public Bot()
-        {
-        }
-
-        public int CalculateNimSum()
+        public static int CalculateNimSum()
         {
             return Heaps.Heap1 ^ Heaps.Heap2 ^ Heaps.Heap3;
         }
 
-        public void Turn()
+        public static void Turn()
         {
             int nimSum = CalculateNimSum();
             int[] remainingStones = { Heaps.Heap1, Heaps.Heap2, Heaps.Heap3 };
+            bool isValidMove;
 
             if (nimSum != 0)
             {
                 for (int i = 0; i < Game.NUMBER_OF_PILES; i++)
                 {
-                    if ((remainingStones[i] ^ nimSum) < remainingStones[i])
+                    isValidMove = Game.CheckIfValidMove((remainingStones[i] ^ nimSum), i);
+                    if ((remainingStones[i] ^ nimSum) < remainingStones[i] && isValidMove)
                     {
-
+                        Heaps.UpdateNumberOfStones((remainingStones[i] ^ nimSum), i);
+                        break;
                     }
                 }
             }
             else
             {
-
+                Random rnd = new Random();
+                int randomAmountToRemove;
+                int heapToRemoveFrom;
+                do
+                {
+                    randomAmountToRemove = rnd.Next(1,20);
+                    heapToRemoveFrom = rnd.Next(0, 3);
+                    isValidMove = Game.CheckIfValidMove(randomAmountToRemove, heapToRemoveFrom);
+                }
+                while (!isValidMove);
+                Heaps.UpdateNumberOfStones(randomAmountToRemove, heapToRemoveFrom);
             }
         }
 
-        public void PredictWinner(string whoseTurn)
+        public static void PredictWinner(string whoseTurn)
         {
-            Console.WriteLine("Based on the values in these piles, if both players play optimally.....");
+            Console.WriteLine("Based on the values in these piles, if both players play optimally...");
             if (CalculateNimSum() != 0)
             {
                 if (whoseTurn == "Player"){ Console.WriteLine("You will win!"); }
