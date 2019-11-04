@@ -37,11 +37,11 @@ namespace nim
                 {
                     case ConsoleKey.LeftArrow:
                         if (heapNumber > 0) { heapNumber -= 1; }
-                        Game.HoverOverSelectedHeap(Game.Board ,heapNumber);
+                        Render.HoverOverSelectedHeap(Game.Board ,heapNumber);
                         break;
                     case ConsoleKey.RightArrow:
                         if (heapNumber < 2) { heapNumber += 1; }
-                        Game.HoverOverSelectedHeap(Game.Board, heapNumber);
+                        Render.HoverOverSelectedHeap(Game.Board, heapNumber);
                         break;
                     case ConsoleKey.Enter:
                         heapWasSelected = true;
