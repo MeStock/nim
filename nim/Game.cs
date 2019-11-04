@@ -1,28 +1,27 @@
 ﻿using System;
 namespace nim
 {
-    public enum Difficulty { Easy = 1, Medium, Hard}
+    public enum Difficulty { Easy = 1, Medium, Hard }
     public class Game
     {
         public static Heaps currentHeaps = new Heaps();
         public static Game currentGame = new Game();
         public static string[] Board { get; set; }
-        public static int NUMBER_OF_PILES = 3;
         public static string whoseTurn = "Player";
         public static bool gameRunning = true;
 
         public Game()
         {
-            Board = new string[]{ $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
+            Board = new string[] { $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
         }
 
         public static void StartGame()
         {
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
-            Difficulty difficulty  = AskForDifficulty();
+            Difficulty difficulty = AskForDifficulty();
             Bot.PredictWinner(whoseTurn);
-            RenderGame(Board);
+            Render.Game(Board);
             while (gameRunning)
             {
                 if (whoseTurn == "Player")
@@ -43,37 +42,20 @@ namespace nim
 
         public static Difficulty AskForDifficulty()
         {
-            bool isValidSelection;
             Difficulty selectedDifficulty;
+            bool isValidSelection;
+            bool isDefinedEnum = false;
             do
             {
                 WelcomePage.WriteDifficultyOptions();
                 string userInput = Console.ReadLine();
                 isValidSelection = Enum.TryParse<Difficulty>(userInput, true, out selectedDifficulty);
-                if (!isValidSelection) { Console.WriteLine("Invalid difficulty"); }
-            } while (!isValidSelection);
-            Console.Clear();
+                if (isValidSelection) { isDefinedEnum = Enum.IsDefined(typeof(Difficulty), selectedDifficulty); }
+                if (!isValidSelection || !isDefinedEnum) { Console.WriteLine("Invalid difficulty"); }
+                Console.Clear();
+            } while (!isValidSelection || !isDefinedEnum);
             ExplainRules();
             return selectedDifficulty;
-        }
-
-        public static void RenderGame(string[] heaps)
-        {
-            ClearLine();
-            for (int i = 0; i < heaps.Length; i++)
-            {
-                if (i == 0)
-                {
-                    Console.BackgroundColor = ConsoleColor.Magenta;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write(heaps[i]);
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.Write(heaps[i]);
-                }
-            }
         }
 
         public static bool CheckIfValidMove(int amountToRemove, int heapToRemoveFrom)
@@ -107,36 +89,10 @@ namespace nim
             Console.WriteLine($"{winner} beat {loser}");
         }
 
-        public static void ClearLine()
-        {
-            Console.SetCursorPosition(0, Console.CursorTop);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(0, Console.CursorTop - (Console.WindowWidth >= Console.BufferWidth ? 1 : 0));
-        }
-       
-        public static void HoverOverSelectedHeap(string[] heaps, int selectedHeap)
-        {
-            ClearLine();
-            for (int i = 0; i < heaps.Length; i++)
-            {
-                if (i == selectedHeap)
-                {
-                    Console.BackgroundColor = ConsoleColor.Magenta;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write(heaps[i]);
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.Write(heaps[i]);
-                }
-            }
-        }
-
         public static void UpdateBoard()
         {
-            Board = new string[]{ $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
-            RenderGame(Board);
+            Board = new string[] { $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
+            Render.Game(Board);
         }
     }
 }
