@@ -19,7 +19,7 @@ namespace nim
         {
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
-            Difficulty difficulty  = AskForDifficulty();
+            Difficulty difficulty = AskForDifficulty();
             Bot.PredictWinner(whoseTurn);
             Render.Game(Board);
             while (gameRunning)
@@ -42,16 +42,18 @@ namespace nim
 
         public static Difficulty AskForDifficulty()
         {
-            bool isValidSelection;
             Difficulty selectedDifficulty;
+            bool isValidSelection;
+            bool isDefinedEnum = false;
             do
             {
                 WelcomePage.WriteDifficultyOptions();
                 string userInput = Console.ReadLine();
                 isValidSelection = Enum.TryParse<Difficulty>(userInput, true, out selectedDifficulty);
-                if (!isValidSelection) { Console.WriteLine("Invalid difficulty"); }
-            } while (!isValidSelection);
-            Console.Clear();
+                if (isValidSelection) { isDefinedEnum = Enum.IsDefined(typeof(Difficulty), selectedDifficulty); }
+                if (!isValidSelection || !isDefinedEnum) { Console.WriteLine("Invalid difficulty"); }
+                Console.Clear();
+            } while (!isValidSelection || !isDefinedEnum);
             ExplainRules();
             return selectedDifficulty;
         }
