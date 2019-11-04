@@ -29,7 +29,6 @@ namespace nim
             Console.WriteLine("     -the player who removes the last stone wins!");
             Console.WriteLine();
             Console.WriteLine("Happy Nimming!");
-
         }
 
         public static void WriteDifficultyOptions()

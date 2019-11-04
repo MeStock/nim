@@ -6,7 +6,9 @@ namespace nim
     {
         public static Heaps currentHeaps = new Heaps();
         public static Game currentGame = new Game();
+        public static Bot currentBot = new Bot();
         public static string[] Board { get; set; }
+        public static int NUMBER_OF_PILES = 3;
         public static bool gameRunning = true;
 
         public Game()
@@ -19,10 +21,12 @@ namespace nim
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
             Difficulty difficulty  = AskForDifficulty();
+            currentBot.PredictWinner("Player");
             RenderGame(Board);
             while (gameRunning)
             {
                 Player.Turn();
+                Console.WriteLine($"Nimsum: {currentBot.CalculateNimSum()}");
                 UpdateBoard();
                 gameRunning &= !CheckForWinner();
                 //Bot.Turn();
