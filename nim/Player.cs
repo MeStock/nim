@@ -11,14 +11,14 @@ namespace nim
             bool validNumber = false;
             int amountToRemove = 0;
 
-            while (!validNumber && !validMove && amountToRemove < 1)
+            while (!validNumber || !validMove || amountToRemove < 1)
             {
                 SelectedHeap = GetSelectedHeap();
                 validNumber = int.TryParse(Console.ReadLine(), out amountToRemove);
                 validMove = Game.CheckIfValidMove(amountToRemove, SelectedHeap);
-                if (!validMove && validNumber) { Console.WriteLine($"Invalid move - that pile does not have {amountToRemove} stones in it"); amountToRemove = 0; }
-                else if(!validNumber) { Console.WriteLine($"Invalid move -  please enter an integer value"); amountToRemove = 0; }
-                else if(validNumber && amountToRemove < 1) { Console.WriteLine("Invalid move - You must take at least one stone"); }
+                if (!validNumber) { Console.WriteLine($"Invalid move -  please enter an integer value"); amountToRemove = 0; Game.UpdateBoard(); }
+                else if (!validMove) { Console.WriteLine($"Invalid move - that pile does not have {amountToRemove} stones in it"); amountToRemove = 0; Game.UpdateBoard(); }
+                else if(amountToRemove < 1) { Console.WriteLine("Invalid move - You must take at least one stone"); Game.UpdateBoard(); }
             }
             Heaps.UpdateNumberOfStones(amountToRemove, SelectedHeap);
         }
@@ -45,6 +45,9 @@ namespace nim
                         break;
                     case ConsoleKey.Enter:
                         heapWasSelected = true;
+                        break;
+                    default:
+                        Console.Beep();
                         break;
                 }
             }
