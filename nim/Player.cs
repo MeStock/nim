@@ -47,10 +47,12 @@ namespace nim
                 {
                     case ConsoleKey.LeftArrow:
                         if (heapNumber > 0) { heapNumber -= 1; } //There are only 3 piles - 0, 1, 2 - Therefore you cannot move past 0 to the left
+                        else { Console.Beep(); }
                         Render.HoverOverSelectedHeap(Game.Board ,heapNumber);
                         break;
                     case ConsoleKey.RightArrow:
                         if (heapNumber < 2) { heapNumber += 1; } //There are only 3 piles - 0, 1, 2 - Therefore you cannot move past 2 to the right
+                        else { Console.Beep(); }
                         Render.HoverOverSelectedHeap(Game.Board, heapNumber);
                         break;
                     case ConsoleKey.Enter:
@@ -66,7 +68,8 @@ namespace nim
 
         public static void AskForUserInput()
         {
-            Console.SetCursorPosition(CURSOR_TOP, CURSOR_LEFT); //reset the cursor before clearing & writing the line to not interupt the game
+            //reset the cursor position before clearing & writing the line to not interupt the game
+            Console.SetCursorPosition(CURSOR_TOP, CURSOR_LEFT); 
             Render.ClearLine();
             Console.Write("How many would you like to remove? ");
         }
@@ -91,7 +94,7 @@ namespace nim
         {
             Render.ClearLine();
             Console.WriteLine("Invalid move - You must take at least one stone");
-            Game.UpdateBoard(); //Because zero is an invalid move, it was chosen to prompt the user for a valid input
+            Game.UpdateBoard();
         }
     }
 }
