@@ -7,7 +7,7 @@ The strategy has been mathematically proven for all initial pile/item combinatio
 A computer does this by summing the binary values of all piles and ignoring the carried digits. This operations is called "exclusive or" represented by a ```^``` character in most languages.
 
 Here is an example of how a simple game play would look like:<br>
-![StepByStepGameVisula](https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi7-JqN4tPlAhUS7J4KHXZJDdYQjRx6BAgBEAQ&url=https%3A%2F%2Fplus.maths.org%2Fcontent%2Fplay-win-nim&psig=AOvVaw185vr3NLUyRCVZTmlOCjMb&ust=1573067195379836 "Step by step game visual")
+![StepByStepGameVisual](https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi7-JqN4tPlAhUS7J4KHXZJDdYQjRx6BAgBEAQ&url=https%3A%2F%2Fplus.maths.org%2Fcontent%2Fplay-win-nim&psig=AOvVaw185vr3NLUyRCVZTmlOCjMb&ust=1573067195379836 "Step by step game visual")
 
 ## Installation
 
@@ -18,14 +18,14 @@ Here is an example of how a simple game play would look like:<br>
 ## How to Play
 
 1. Select your difficulty:
-    * ![WelcomePage](WelcomePage.png "Game Welcome Page")
+    * ![WelcomePage](./nim/WelcomePage.png "Game Welcome Page")
 2. Make a move:
     * Use arrow keys to move from pile to pile
     * Hit enter to select a pile
     * Enter the amount of items you would like to remove from the selected pile
-    * ![HowToPlay](MakeAMove.png "How To Play")
+    * ![HowToPlay](./nim/MakeAMove.png "How To Play")
 3. See the computers move
- * ![ComputerTurn](ComputerTurn.png "See Computers Moves")
+ * ![ComputerTurn](./nim/ComputerTurn.png "See Computers Moves")
 4. Continue until the game is over
 
 ## Features
