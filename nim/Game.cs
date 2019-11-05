@@ -9,6 +9,7 @@ namespace nim
         public static string[] Board { get; set; }
         public static string whoseTurn = "Player";
         public static bool gameRunning = true;
+        public static int MAX_STONES = 10;
 
         public Game()
         {
