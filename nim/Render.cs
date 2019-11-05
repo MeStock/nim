@@ -8,7 +8,7 @@ namespace nim
             ClearLine();
             for (int i = 0; i < heaps.Length; i++)
             {
-                if (i == 0)
+                if (i == 0) //Always start by hovering over the first pile
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
@@ -22,7 +22,7 @@ namespace nim
             }
         }
 
-        public static void ClearLine()
+        public static void ClearLine() //Remove the last writen line
         {
             Console.SetCursorPosition(0, Console.CursorTop);
             Console.Write(new string(' ', Console.WindowWidth));
@@ -31,7 +31,7 @@ namespace nim
 
         public static void HoverOverSelectedHeap(string[] heaps, int selectedHeap)
         {
-            ClearLine();
+            ClearLine(); //Clear and rewrite the line as the user uses the left & right arrow keys
             ClearLine();
             for (int i = 0; i < heaps.Length; i++)
             {
