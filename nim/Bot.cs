@@ -35,20 +35,20 @@ namespace nim
         {
             int nimSum = CalculateNimSum();
             int[] remainingStones = { Heaps.Heap1, Heaps.Heap2, Heaps.Heap3 };
-            bool isValidMove;
 
             if (nimSum != 0)
             {
                 for (int i = 0; i < remainingStones.Length; i++)
                 {
-                    isValidMove = Game.CheckIfValidMove((remainingStones[i] ^ nimSum), i);
-                    if ((remainingStones[i] ^ nimSum) < remainingStones[i] && isValidMove)
+                    if ((remainingStones[i] ^ nimSum) < remainingStones[i])
                     {
+                        int amountToRemove = remainingStones[i] - (remainingStones[i] ^ nimSum);
                         Render.ClearLine();
-                        Console.WriteLine($"Computer removed {(remainingStones[i] ^ nimSum)} stones from pile {i + 1}");
-                        Heaps.UpdateNumberOfStones((remainingStones[i] ^ nimSum), i);
+                        Console.WriteLine($"Computer removed {amountToRemove} stones from pile {i + 1}");
+                        Heaps.UpdateNumberOfStones(amountToRemove, i);
                         break;
                     }
+                    if (i == remainingStones.Length - 1) { MakeRandomMove(); }
                 }
             }
             else
@@ -59,18 +59,17 @@ namespace nim
 
         public static void MakeRandomMove()
         {
-            int randomAmountToRemove;
-            int heapToRemoveFrom;
-            bool isValidMove;
-            do
+            int randomAmountToRemove = -1;
+            int heapToRemoveFrom = -1;
+            bool isValidMove = false;
+            while (!isValidMove)
             {
-                randomAmountToRemove = rnd.Next(1, 50);
+                randomAmountToRemove = rnd.Next(1, Game.MAX_STONES);
                 heapToRemoveFrom = rnd.Next(0, 3);
                 isValidMove = Game.CheckIfValidMove(randomAmountToRemove, heapToRemoveFrom);
             }
-            while (!isValidMove);
             Render.ClearLine();
-            Console.WriteLine($"Computer removed {randomAmountToRemove} stones from pile {heapToRemoveFrom}");
+            Console.WriteLine($"Computer removed {randomAmountToRemove} stones from pile {heapToRemoveFrom + 1}");
             Heaps.UpdateNumberOfStones(randomAmountToRemove, heapToRemoveFrom);
         }
 
