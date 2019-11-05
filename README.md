@@ -1,4 +1,4 @@
-<h1>Nim</h1>
+# Nim
 
 <h2>Description</h2>
 Nim is a game where two players take turns removing items from three different piles. On a turn, the player removes any number of items from any same pile, and must at least take one item. The winner is the last person to remove a stone. 
