@@ -7,7 +7,7 @@ The strategy has been mathematically proven for all initial pile/item combinatio
 A computer does this by summing the binary values of all piles and ignoring the carried digits. This operations is called "exclusive or" represented by a ```^``` character in most languages.
 
 Here is an example of how a simple game play would look like:<br>
-![StepByStepGameVisual](https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi7-JqN4tPlAhUS7J4KHXZJDdYQjRx6BAgBEAQ&url=https%3A%2F%2Fplus.maths.org%2Fcontent%2Fplay-win-nim&psig=AOvVaw185vr3NLUyRCVZTmlOCjMb&ust=1573067195379836 "Step by step game visual")
+![StepByStepGameVisual](./nim/StepByStep.png "Step by step game visual")
 
 ## Installation
 
