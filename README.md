@@ -17,15 +17,15 @@ Here is an example of how a simple game play would look like:<br>
 
 ## How to Play
 
-1. Select your difficulty:
-     ![WelcomePage](./nim/WelcomePage.png "Game Welcome Page")
+1. Select your difficulty:<br>
+     ![WelcomePage](./nim/WelcomePage.png "Game Welcome Page")<br>
 2. Make a move:
     * Use arrow keys to move from pile to pile
     * Hit enter to select a pile
-    * Enter the amount of items you would like to remove from the selected pile
-     ![HowToPlay](./nim/MakeAMove.png "How To Play")
-3. See the computers move
-     ![ComputerTurn](./nim/ComputerTurn.png "See Computers Moves")
+    * Enter the amount of items you would like to remove from the selected pile<br>
+     ![HowToPlay](./nim/MakeAMove.png "How To Play")<br>
+3. See the computers move<br>
+     ![ComputerTurn](./nim/ComputerTurn.png "See Computers Moves")<br>
 4. Continue until the game is over
 
 ## Features
