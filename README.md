@@ -2,7 +2,7 @@
 
 ## Description
 
-Nim is a game where two players take turns removing items from three different piles. On a turn, the player removes any number of items from any same pile, and must at least take one item. The winner is the last person to remove a stone. 
+Nim is a game where two players take turns removing items from three different piles. On a turn, the player removes any number of items from any same pile, and must at least take one item. The winner is the last person to remove an item. 
 The strategy has been mathematically proven for all initial pile/item combinations and calculated using binary digital sum of the piles, otherwise known as the Nim Sum. The goal is to acheive a Nim Sum of zero at the end of your turn.
 A computer does this by summing the binary values of all piles and ignoring the carried digits. This operations is called "exclusive or" represented by a ```^``` character in most languages.
 
