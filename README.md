@@ -15,11 +15,10 @@ Example of Nim Sum calculation:
 
 Piles = { 3 4 5 }<br>
 Binary:<br>
-3 = 0 1 1 + <br>
-4 = 1 0 0 + <br>
-5 = 1 0 1 + <br>
-----------
-  = 0 1 0 ← 2 <br>
+&nbsp;&nbsp;&nbsp;3 = 0 1 1 + <br>
+&nbsp;&nbsp;&nbsp;4 = 1 0 0 + <br>
+&nbsp;&nbsp;&nbsp;5 = 1 0 1 + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;= 0 1 0 ← 2 <br>
 
 Nim Sum = 2. In this example, since the Nim Sum is 2, the player who currently has the turn will win if each player plays optimally. A computer calculates this by using operan called "exclusive or" or XOR represented by a ```^``` character in most languages. ```nimSum = pile1 ^ pile2 ^ pile3;```
 
