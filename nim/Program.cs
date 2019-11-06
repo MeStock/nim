@@ -7,6 +7,7 @@ namespace nim
         static void Main()
         {
             Game.StartGame();
+            //Game.Demo();
         }
     }
 }

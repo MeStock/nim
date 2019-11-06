@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace nim
 {
     public class Bot
@@ -98,12 +99,12 @@ namespace nim
             Console.WriteLine("Based on the values in these piles, if both players play optimally...");
             if (CalculateNimSum() != 0)
             {
-                if (whoseTurn == "Player"){ Console.WriteLine("You will win!"); }
+                if (whoseTurn == "Player1") { Console.WriteLine($"{whoseTurn} will win!"); }
                 else { Console.WriteLine("The computer will win"); }
             }
             else
             {
-                if (whoseTurn == "Player") { Console.WriteLine("The computer will win"); }
+                if (whoseTurn == "Player1") { Console.WriteLine("The computer will win"); }
                 else { Console.WriteLine("You will win!"); }
             }
             Console.WriteLine();

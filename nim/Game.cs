@@ -7,9 +7,10 @@ namespace nim
         public static Heaps currentHeaps = new Heaps();
         public static Game currentGame = new Game();
         public static string[] Board { get; set; }
+        public static string whoseTurn { get; set; }
         public static bool gameRunning = true;
-        public static string whoseTurn = "Player"; //The user always goes first
-        public static int MAX_STONES = 10; //Max number of stones in one heap - can be changed to any number
+        public static Difficulty difficulty;
+        public static readonly int MAX_STONES = 10; //Max number of stones in one heap - can be changed to any number
 
         public Game()
         {
@@ -20,26 +21,55 @@ namespace nim
         {
             WelcomePage.WriteBanner();
             WelcomePage.StartWithRules();
-            Difficulty difficulty = AskForDifficulty();
+            AskForHowManyPlayers();
+            if (whoseTurn == "You") { difficulty = AskForDifficulty(); }
             Bot.PredictWinner(whoseTurn);
             Console.WriteLine();
             Render.Game(Board);
             while (gameRunning)
             {
-                if (whoseTurn == "Player")
+                if (whoseTurn == "You")
                 {
                     Player.Turn();
-                    whoseTurn = "Bot"; //After players turn - change player to computer
+                    whoseTurn = "Computer"; //After players turn - change player to computer
+                }
+                else if (whoseTurn == "Computer")
+                {
+                    Bot.Turn(difficulty);
+                    whoseTurn = "You"; //After computers turn - change player to user
+
+                }
+                else if (whoseTurn == "Player1")
+                {
+                    Player.Turn();
+                    whoseTurn = "Player2";
                 }
                 else
                 {
-                    Bot.Turn(difficulty);
-                    whoseTurn = "Player"; //After computers turn - change player to user
+                    Player.Turn();
+                    whoseTurn = "Player1";
                 }
                 UpdateBoard();
                 gameRunning &= !CheckForWinner(); //After each turn - check if there is a winner & determine if the game is still running
             }
             EndGameMessage(whoseTurn);
+        }
+
+        public static void AskForHowManyPlayers()
+        {
+            bool isValidSelection = false;
+            int selectedMode = 0;
+            while (!isValidSelection || selectedMode < 1 || selectedMode > 3)
+            {
+                Console.WriteLine("Please select which mode you would like to try: ");
+                Console.WriteLine("1. You v.s. the Computer");
+                Console.WriteLine("2. You v.s. a Friend");
+                isValidSelection = int.TryParse(Console.ReadLine(), out selectedMode);
+                if (!isValidSelection) { Console.WriteLine("Invalid Mode"); }
+                Console.Clear();
+            }
+            if (selectedMode == 1) { whoseTurn = "You"; }
+            else { whoseTurn = "Player1"; }
         }
 
         public static Difficulty AskForDifficulty()
@@ -63,7 +93,7 @@ namespace nim
         {
             int[] remainingStones = { Heaps.Heap1, Heaps.Heap2, Heaps.Heap3 };
             if (amountToRemove == 0) { return false; } //You must take at least one stone
-            if (remainingStones[heapToRemoveFrom] - amountToRemove < 0) { return false; } //A move cannot leave a pile with less that zero stones
+            if (remainingStones[heapToRemoveFrom] - amountToRemove < 0) { return false; } //A move cannot result in a pile with negative stones
             return true;
         }
 
@@ -92,6 +122,29 @@ namespace nim
         {
             Board = new string[] { $"  |_{Heaps.Heap1}_|   ", $"  |_{Heaps.Heap2}_|   ", $"  |_{Heaps.Heap3}_|    " };
             Render.Game(Board);
+        }
+
+        //Computer vs Computer - Use to demo that the prediction method is accurate
+        public static void Demo()
+        {
+            whoseTurn = "Computer1";
+            Console.WriteLine($"NimSum: {Bot.CalculateNimSum()}");
+            while (gameRunning)
+            {
+                if (whoseTurn == "Computer1")
+                {
+                    Bot.Turn(Difficulty.Hard);
+                    whoseTurn = "Computer2";
+                }
+                else
+                {
+                    Bot.Turn(Difficulty.Hard);
+                    whoseTurn = "Computer1";
+                }
+                UpdateBoard();
+                gameRunning &= !CheckForWinner();
+            }
+            Console.WriteLine($"{whoseTurn} lost!");
         }
     }
 }
