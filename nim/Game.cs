@@ -37,7 +37,7 @@ namespace nim
                     whoseTurn = "Player"; //After computers turn - change player to user
                 }
                 UpdateBoard();
-                gameRunning &= !CheckForWinner(); //After each turn - check if there is a winner & determine if the game is still running
+                gameRunning = !CheckForWinner(); //After each turn - check if there is a winner & determine if the game is still running
             }
             EndGameMessage(whoseTurn);
         }

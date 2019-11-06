@@ -30,7 +30,6 @@ namespace nim
                     break;
             }
         }
-
         /*
          Algorithm Source: https://www.geeksforgeeks.org/combinatorial-game-theory-set-2-game-nim/
          

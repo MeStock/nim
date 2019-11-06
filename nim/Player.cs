@@ -13,7 +13,7 @@ namespace nim
             bool validNumber = false;
             int amountToRemove = 0;
 
-            while (!validNumber || !validMove || amountToRemove < 1) //User must enter an integer (at least equal to 1) that is a valid move
+            while (!validNumber || !validMove) //User must enter an integer that is a valid move
             {
                 SelectedHeap = GetSelectedHeap();
                 AskForUserInput();
@@ -24,7 +24,6 @@ namespace nim
             }
             Heaps.UpdateNumberOfStones(amountToRemove, SelectedHeap);
         }
-
         /*
             While the user is deciding on which pile to select
             "Hover" over the pile of interest to reflect user input is being monitored
