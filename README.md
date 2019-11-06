@@ -23,9 +23,9 @@ Here is an example of how a simple game play would look like:<br>
     * Use arrow keys to move from pile to pile
     * Hit enter to select a pile
     * Enter the amount of items you would like to remove from the selected pile<br>
-     ![HowToPlay](./nim/MakeAMove.png "How To Play")<br>
+    ![HowToPlay](./nim/MakeAMove.png "How To Play")<br>
 3. See the computers move<br>
-     ![ComputerTurn](./nim/ComputerTurn.png "See Computers Moves")<br>
+    ![ComputerTurn](./nim/ComputerTurn.png "See Computers Moves")<br>
 4. Continue until the game is over
 
 ## Features
