@@ -13,13 +13,13 @@ The strategy is to calculate pile/item combinations using a "Nim Sum". Nim Sum i
 
 Example of Nim Sum calculation:
 
-Piles = { 3 4 5 }
-Binary:
-3 = 0 1 1 +
-4 = 1 0 0 +
-5 = 1 0 1 +
+Piles = { 3 4 5 }<br>
+Binary:<br>
+3 = 0 1 1 + <br>
+4 = 1 0 0 + <br>
+5 = 1 0 1 + <br>
 ----------
-  = 0 1 0 ← 2 
+  = 0 1 0 ← 2 <br>
 
 Nim Sum = 2. In this example, since the Nim Sum is 2, the player who currently has the turn will win if each player plays optimally. A computer calculates this by using operan called "exclusive or" or XOR represented by a ```^``` character in most languages. ```nimSum = pile1 ^ pile2 ^ pile3;```
 
@@ -49,10 +49,10 @@ Here is an example of how a simple game play would look:<br>
 We saw in the previous example that for piles = { 3 4 5}, the nim sum = 2. 
 This is a winning position.
 
-We check each value against the nim sum using XOR:
-	3 ^ 2 = 1 ← notice that 1 < 3
-	4 ^ 2 = 6
-	5 ^ 2 = 7
+We check each value against the nim sum using XOR:<br>
+    * 3 ^ 2 = 1 ← notice that 1 < 3<br>
+    * 4 ^ 2 = 6<br>
+    * 5 ^ 2 = 7<br>
 The optimal move here is to reduce 3 to 1. Why? Because 1 ^ 4 ^ 5 = 0. 
 This is a losing position.
 
